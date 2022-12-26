@@ -33,6 +33,6 @@ public class MusicToggle : CheckBoxManager
             AudioManager.instance.AdjustSFXVolume(value);
 
         else
-            Debug.LogWarning("Please an Audio Manager to the scene");
+            Debug.LogWarning("Please add an Audio Manager to the scene");
     }
 }

@@ -27,6 +27,6 @@ public class SFXVolumeChangesHandler : SliderManager
             AudioManager.instance.AdjustMusicVolume(value);
 
         else
-            Debug.LogWarning("Please an Audio Manager to the scene");
+            Debug.LogWarning("Please add an Audio Manager to the scene");
     }
 }
