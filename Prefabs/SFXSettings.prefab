@@ -541,7 +541,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 467570548872518346}
         m_TargetAssemblyTypeName: CheckBoxManager, com.sleepylemurgames.audiosystem.settings
         m_MethodName: FlipValue
         m_Mode: 1
