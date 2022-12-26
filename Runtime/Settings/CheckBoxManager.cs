@@ -14,6 +14,9 @@ public class CheckBoxManager : MonoBehaviour, IUISettings
     private Sprite onImage;     // icon displayed when the music/sfx is on
     [SerializeField]
     private Sprite offImage;    // icon displayed when the music/sfx is off (muted)
+    [SerializeField]
+    protected AudioData audioData; // dataObject inplementing IAudioData (to be updated when settings changed)
+
     private Image image;        // the image component holding the icon
     private Toggle toggle;      // the toogle component for the check box
     private bool defaultValue;  // the default state of the checkbox

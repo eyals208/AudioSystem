@@ -14,6 +14,7 @@ public class MusicToggle : CheckBoxManager
 {   
     [SerializeField]
     private bool _defaultValue = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,16 @@ public class MusicToggle : CheckBoxManager
 
     private void UpdateDataObject(bool value)
     {
-        AudioManager.instance.AdjustMusicVolume(value);   
+        if(audioData != null)
+            audioData.UpdateSFXVolume(value);
+
+        else
+            Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");
+
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustSFXVolume(value);
+
+        else
+            Debug.LogWarning("Please an Audio Manager to the scene");
     }
 }

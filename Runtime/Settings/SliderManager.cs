@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class SliderManager : MonoBehaviour, IUISettings
 {
+    [SerializeField]
+    protected AudioData audioData; // dataObject inplementing IAudioData (to be updated when settings changed)
     private Slider slider;
     private float defaultValue;
     
