@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+/*
+This class is on the SFX volume game object in the settings scene.
+the toggle component is a child of the game object holding this script.
+This script inherits from the CheckBoxManager, that does most of the handling of the toggle.
+This script initializes the CheckBoxManager and updates the 
+Audio manager and the scriptable data object when the check box value changes
+*/
+public class SFXToggle : CheckBoxManager
+{
+    [SerializeField]
+    private bool _defaultValue = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitializeToggle(_defaultValue, UpdateDataObject);
+    }
+
+    private void UpdateDataObject(bool value)
+    {
+        AudioManager.instance.AdjustSFXVolume(value);
+    }
+}

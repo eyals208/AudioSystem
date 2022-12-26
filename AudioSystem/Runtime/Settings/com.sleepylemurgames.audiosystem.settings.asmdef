@@ -1,0 +1,16 @@
+{
+    "name": "com.sleepylemurgames.audiosystem.settings",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a1004ea2e9b8411419c72b472c21c74d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
