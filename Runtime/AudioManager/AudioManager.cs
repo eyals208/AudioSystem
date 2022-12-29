@@ -8,8 +8,22 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    [SerializeField][Tooltip("automatically plays music sources one after the other, plays on start. will override looped sources")]
+    bool autoplay = true;
+    public bool AutoPlay
+    {
+        get => autoplay;
+        set => autoplay = value;
+    }
+
     [SerializeField]
     public Sound[] sounds;
+
+    List<Sound> musicSounds = new();
+
+    Sound activeMusic;
+    float lastTime;
+    bool isMusicMute = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -31,11 +45,55 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+
+            if (!s.isSFX)
+            {
+                musicSounds.Add(s);
+                s.source.loop = autoplay? false : s.loop;
+            }
         }
     }
 
     private void Start() {
-        Play("ThemeMusic");
+        if (autoplay && musicSounds.Count > 0)
+        {
+            activeMusic = musicSounds[0];
+            activeMusic.source.Play();
+        }
+    }
+
+    private void Update()
+    {
+        if (activeMusic == null || !autoplay || isMusicMute) return;
+        if (IsDone(activeMusic.source))
+            PlayNextMusic(activeMusic);
+    }
+
+    private void PlayNextMusic(Sound activeMusic)
+    {
+        int index = musicSounds.IndexOf(activeMusic);
+        if (index >= musicSounds.Count - 1) index = 0;
+        else index++;
+        PlayMusic(musicSounds[index]);
+
+    }
+
+    bool IsDone(AudioSource audioSource)
+    {
+        if (audioSource.time < lastTime) return true;
+        lastTime = audioSource.time;
+        return false;
+        //return audioSource.time >= audioSource.clip.length;
+    }
+
+    void PlayMusic(Sound sound)
+    {
+        if (isMusicMute) return;
+        lastTime = -1;
+        activeMusic.source.Stop();
+        activeMusic = sound; ;
+        activeMusic.source.Play();
+        Debug.Log("playing " + activeMusic.name);
     }
     
     public void Play(string name) 
@@ -46,8 +104,9 @@ public class AudioManager : MonoBehaviour
             Debug.Log("sound " + name + " could not be found");
             return;
         }
-        
-        s.source.Play();
+
+        if (!s.isSFX) PlayMusic(s);
+        else s.source.Play();
     }   
 
     public void AdjustSFXVolume(float value)
@@ -72,19 +131,28 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void AdjustMusicVolume(float value, string name = "ThemeMusic")
+    public void AdjustMusicVolume(float value)
     {
-        Sound music = Array.Find(sounds, sound => sound.name == name);
-        if (music == null) return;
-        music.source.volume = value;
+        foreach (Sound s in sounds)
+        {
+            if (!s.isSFX)
+            {
+                s.source.volume = value;
+            }
+        }
     }
 
-    public void AdjustMusicVolume(bool mute, string name = "ThemeMusic")
+    public void AdjustMusicVolume(bool value)
     {
-        Sound music = Array.Find(sounds, sound => sound.name == name);
-        if (music == null) return;
+        foreach (Sound s in sounds)
+        {
+            if (!s.isSFX)
+            {
+                s.source.mute = value;
+            }
+        }
 
-        music.source.mute = mute;
+        isMusicMute = value;
     }
     
 }

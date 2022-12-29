@@ -24,13 +24,13 @@ public class MusicToggle : CheckBoxManager
     private void UpdateDataObject(bool value)
     {
         if(audioData != null)
-            audioData.UpdateSFXVolume(value);
+            audioData.UpdateMusicVolume(value);
 
         else
             Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");
 
         if (AudioManager.instance != null)
-            AudioManager.instance.AdjustSFXVolume(value);
+            AudioManager.instance.AdjustMusicVolume(value);
 
         else
             Debug.LogWarning("Please add an Audio Manager to the scene");
