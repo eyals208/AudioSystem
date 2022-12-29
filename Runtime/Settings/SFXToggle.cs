@@ -24,7 +24,7 @@ public class SFXToggle : CheckBoxManager
     private void UpdateDataObject(bool value)
     {
         if (audioData != null)
-            audioData.UpdateSFXVolume(value);
+            audioData.IsSFXMuted = value;
 
         else
             Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");

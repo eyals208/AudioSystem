@@ -18,13 +18,13 @@ public class SFXVolumeChangesHandler : SliderManager
     private void UpdateDataObject(float value)
     {
         if (audioData != null)
-            audioData.UpdateMusicVolume(value);
+            audioData.SFXVolume = value;
 
         else
             Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");
 
         if (AudioManager.instance != null)
-            AudioManager.instance.AdjustMusicVolume(value);
+            AudioManager.instance.AdjustSFXVolume(value);
 
         else
             Debug.LogWarning("Please add an Audio Manager to the scene");

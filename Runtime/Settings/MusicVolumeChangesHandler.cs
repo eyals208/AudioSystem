@@ -17,7 +17,7 @@ public class MusicVolumeChangesHandler : SliderManager
     private void UpdateDataObject(float value)
     {
         if (audioData != null)
-            audioData.UpdateMusicVolume(value);
+            audioData.MusicVolume = value;
 
         else
             Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");

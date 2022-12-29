@@ -23,8 +23,8 @@ public class MusicToggle : CheckBoxManager
 
     private void UpdateDataObject(bool value)
     {
-        if(audioData != null)
-            audioData.UpdateMusicVolume(value);
+        if (audioData != null)
+            audioData.IsMusicMuted = value;
 
         else
             Debug.LogWarning("Make sure you assign an AudioData object so your setting are saved when changed");
